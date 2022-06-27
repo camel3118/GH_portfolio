@@ -87,10 +87,11 @@ MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 �
 
 ### 4.1. 물리적 시스템 구성도
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow1.png)
-     - 1. CCTV 영상이 Spark 안에서 Python을 기반으로 OpenCV를 통해 Frame단위로 쪼개어짐.
-     - 2. OpenCV를 이용하여 MariaDB에 카메라 ID, 탐지된 이상행동의 종류, 금지구역 좌푯값을 저장.
-     - 3. OpenCV에서 Frame 단위로 쪼개어준 영상 이미지를 바탕으로 YOLOv5와 DeepSORT 모델이 적용되어 Bbox를 검출함. 이를 바탕으로 설정하는 경계선에 다시 OpenCV가 색을 입혀 도형화함. Bbox는 객체를 인지한 후 인식된 객체의 중간 점으로 예상되는 픽셀값을 지칭하는 값으로, 우리 모델에서는 이를 기반으로 객체를 추적하고, 도형화함.
-     - 4. 
+- **URL 정규식 체크**
+     1. CCTV 영상이 Spark 안에서 Python을 기반으로 OpenCV를 통해 Frame단위로 쪼개어짐.
+     2. OpenCV를 이용하여 MariaDB에 카메라 ID, 탐지된 이상행동의 종류, 금지구역 좌푯값을 저장.
+     3. OpenCV에서 Frame 단위로 쪼개어준 영상 이미지를 바탕으로 YOLOv5와 DeepSORT 모델이 적용되어 Bbox를 검출함. 이를 바탕으로 설정하는 경계선에 다시 OpenCV가 색을 입혀 도형화함. Bbox는 객체를 인지한 후 인식된 객체의 중간 점으로 예상되는 픽셀값을 지칭하는 값으로, 우리 모델에서는 이를 기반으로 객체를 추적하고, 도형화함.
+     4. 
 
 
 
