@@ -185,14 +185,11 @@
 
 
 
-### 4.4. Django 이용 웹 배포
-- **Django 템플릿** 
-![](https://drive.google.com/file/d/1BLu7KkrbiIg4_qPWKrz7apVQBAylC0Do/view?usp=sharing)
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
-     
-  - URL 유효성 체크와 이미지, 제목 파싱이 끝난 컨텐츠는 DB에 저장합니다.
-  - 저장된 컨텐츠는 다시 Repository - Service - Controller를 거쳐 화면단에 송출됩니다.
+### 4.4. Django 이용 웹 배포 
+- 제품 시연 영상 링크(https://drive.google.com/file/d/1BLu7KkrbiIg4_qPWKrz7apVQBAylC0Do/view?usp=sharing)
+  - M-JPEG 방식으로 실시간으로 이상행동을 탐지하여 영상을 송출함.
+  - 개발과정 및 CCTV 현재 위치 등 페이지 구성.
+  - Grafana 대시보드를 이용하여 Meta Data 이용한 실시간 현황 보드 구축함.
 
 </div>
 </details>
