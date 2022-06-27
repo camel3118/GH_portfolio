@@ -77,9 +77,10 @@
 ## 4. 핵심 기능
 본 시스템의 핵심 기능은 크게 3가지로 나뉩니다.
 1. 실시간 CCTV 영상에서 이상행동을 탐지한다.
-2. 탐지된 이상행동을 사용자에게 경고한다.
+2. 탐지된 이상행동(침입,배회,쓰러짐,화재감지)을 사용자에게 경고한다.
 3. 객체 탐지 및 이상행동 탐지 후처리가 완료된 CCTV 영상을 웹을 통해 실시간으로 송출한다.
 MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 진행하였습니다.
+이상행동의 정의는 KISA 지능형 CCTV 인증기준을 참고 하였습니다.
 
 <details>
 <summary><b>핵심 기능 설명 펼치기</b></summary>
@@ -98,19 +99,62 @@ MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 �
      8. Django 메인 페이지에 내장되어있는 Grafana 대시보드가 MariaDB 안의 MetaData를 시각화하고 이를 이용하여 패턴이나 시계열 분석을 할 수 있음.
 
 
+### 4.2. Software/Hardware 배치도
 
-### 4.2. 알고리즘
+
+- **Software 배치도**
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+  - 각 Server는 Linux 기반의 Ubuntu 18.04 버전 OS를 바탕으로 구성됨.
+  - CUDA / cuDNN은 머신러닝 구동 시 GPU를 사용하여 처리 속도를 올리기 위한 라이브러리 임.
+  - RDBMS로 MariaDB를 채택하여 구축하였고, Nosql로 MongoDB를 구축하였음.
+  - 분산 저장소로 Zookeeper 기반의 Kafka를 Cluster 구성하였음.
+  - Hadoop Yarn을 이용하여 Spark Master와 Worker node들을 Cluster로 구성함.
+  - 각 Spark node 안에는 모델 구동에 필요한 Pytorch, OpenCV, YOLOv5, DeepSORT 등이 구축됨.
+     
+ - **Hardware 배치도**
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+  - 각 Server는 IP 주소로 통신하며 여기에 기반하는 Port 주소를 각 Cluster 마다 할당함.
+  - 개인 PC를 기반으로 하는 On-premise Server 1개와 Azure Cloud를 기반으로 하는 VM Server 2개가 엮여 총 3개를 Cluster로 구성함.
+
+### 4.3. 이상행동 탐지 알고리즘
 
 
-- **URL 정규식 체크** :pushpin: [코드 확인]
+- **침입 탐지 알고리즘**
      ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
   - 침입은 사용자 설정 구역에 객체의 몸 전체가 들어가야 한다는 기준을 가지고 탐지함.
   - 객체를 탐지할 때 생기는 Bbox의 꼭지점을 포인트로 지칭하고 사용자 설정구역을 다각형으로 지칭할 때, 다각형 내부에 포인트가 있는지 판별하는 것이 기능 구현의 핵심임.
   - 포인트에서 오른쪽으로 직선을 그었을 때 직선의 접점 개수가 홀수면 다각형의 내부, 짝수면 외부로 판별함.
   - Bbox는 총 4개의 포인트가 있고 포인트 모두 내부로 판별되었을 때 침입으로 탐지함.
 
-- **Axios 비동기 요청** :pushpin: [코드 확인]()
-  - URL의 모양새인 경우, 컨텐츠를 등록하는 POST 요청을 비동기로 날립니다.
+     
+- **배회 탐지 알고리즘**
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+  - 배회는 객체의 몸 전체가 사용자 설정구역에서 10초 이상 머무는 것을 기준으로 탐지함.
+  - 침입 탐지 알고리즘을 기본 조건으로 하여 작동함.
+  - 위 사진과 같이 객체별로 등장한 프레임 수를 세어서 시간 개념으로 변환함.
+  - 30fps의 영상에서 특정 객체가 등장한 프레임 수가 300이면 10초의 시간으로 인식되어 배회를 탐지함.
+ 
+- **쓰러짐 탐지 알고리즘**
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+  - 쓰러짐은 사람이 주저앉거나 실신한 상태를 기준을 탐지함.
+  - 객체가 쓰러졌을 때 Bbox의 가로와 세로 비율이 반전됨.
+  - Bbox 대각선 위치의 꼭짓점을 서로 연결했을 때 교차점의 각도를 연산하여 기능을 구현함.
+  - 객체가 잠깐 주저앉았을 때 쓰러짐으로 탐지하는 것을 보완하고자 쓰러진 상태가 일정 시간 유지되었을 때만 사용자에게 알람이 발송됨.
+  - 객체가 화면 가장자리에서 등장할 때 몸의 일부만 탐지되면 Bbox의 비율이 반전되기 때문에 Bbox의 y값과 화면의 가장자리가 겹치는 경우를 배제함.
+     
+- **화재 탐지 모델**
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+  - 화재 탐지 모델은 이상행동 탐지 모델과는 별개로 YOLOv5 가중치 값에 전이 학습을 하여 구축함.
+  - 화재 이미지 데이터 약 400장을 labeling하고 훈련데이터와 검증데이터를 8:2로 학습을 진행함.
+  - 0.5 이상의 예측 정확도를 가진 Bbox가 화면에 출력됨.
+
+- **모델 성능 평가**
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+  - KISA 지능형 CCTV 인증기준 기반 모델 성능 테스트를 진행함.
+  - KISA에서 제공하는 테스트 프로그램 사용하여 결과값 측정함.
+  - 침입/쓰러짐/배회/화재탐지 등 4가지 이상행동에 대해 실시함. 
+  - 1차 성능테스트 결과 종합 평균 50점을 획득함.
+  - 모델 성능개선 후 2차 성능테스트 결과 종합 평균 93.8점 획득함.
 
 ### 4.3. Controller
 
