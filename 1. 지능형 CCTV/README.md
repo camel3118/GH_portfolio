@@ -66,7 +66,7 @@
 - 이상행동의 정의는 KISA 지능형 CCTV 인증기준을 참고함.
 
 <details>
-<summary><b4>핵심 기능 설명 펼치기</b4></summary>
+<summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
 ### 4.1. 물리적 시스템 구성도
