@@ -45,23 +45,23 @@
 - 한양대학교 산학협력단(K-digital training)
 - 총 인원 6인
 - 역할: 팀 리더
-- 활동 내역:
-     ㅇ System Architecture 구상/제작
-     ㅇ Product Backlog/Splint Plan 계획/작성
-     ㅇ Prototype 가정/기능 수준 설정
-     ㅇ 스크럼 미팅 진행
-     ㅇ 멘토 미팅 진행
-     ㅇ Linux PC1(Ubuntu local PC) 시스템 구축/제공/관리
-     ㅇ Linux PC2(Ubuntu local PC) 제공/관리
-     ㅇ CUDA/cuDNN 환경 구축
-     ㅇ Azure VM 관리
-     ㅇ YOLOv5/Deepsort 사전학습 모델적용 코드 작성
-     ㅇ YOLOv5 사전학습 모델 전이 학습
-     ㅇ ‘쓰러짐’ 이상행동 탐지 기초기능 구현
-     ㅇ ‘배회’ 이상행동 탐지 기능 구현
-     ㅇ spark(분산 처리) / Kafka(분산 저장) 시스템 구축
-     ㅇ M-JPEG 영상 재생 기능 구현
-     ㅇ Linux 장비 원격 접속 기능 구축
+#### 활동 내역
+- System Architecture 구상/제작
+- Product Backlog/Splint Plan 계획/작성
+- Prototype 가정/기능 수준 설정
+- 스크럼 미팅 진행
+- 멘토 미팅 진행
+- Linux PC1(Ubuntu local PC) 시스템 구축/제공/관리
+- Linux PC2(Ubuntu local PC) 제공/관리
+- CUDA/cuDNN 환경 구축
+- Azure VM 관리
+- YOLOv5/Deepsort 사전학습 모델적용 코드 작성
+- YOLOv5 사전학습 모델 전이 학습
+- ‘쓰러짐’ 이상행동 탐지 기초기능 구현
+- ‘배회’ 이상행동 탐지 기능 구현
+- spark(분산 처리) / Kafka(분산 저장) 시스템 구축
+- M-JPEG 영상 재생 기능 구현
+- Linux 장비 원격 접속 기능 구축
 
 </br>
 
@@ -246,41 +246,5 @@ MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 �
   - DeepSORT를 통해 산출되는 ID 값을 이용하여 객체를 특정하는 것으로 알고리즘을 수정하였고 이를 통해 많은 객체를 동시에 탐지하는 기능과 객체 탐지 수에 따라 발생하던 오류를 해결할 수 있었음.
 </div>
 </details>
-
-- 이 때 카테고리(tag)로 게시물을 필터링 하는 경우,  
-각 게시물은 최대 3개까지의 카테고리(tag)를 가질 수 있어 해당 카테고리를 포함하는 모든 게시물을 질의해야 했기 때문에  
-- 아래 **개선된 코드**와 같이 QueryDSL을 사용하여 다소 복잡한 Query를 작성하면서도 페이징 처리를 할 수 있었습니다.
-
-<details>
-<summary><b>개선된 코드</b></summary>
-<div markdown="1">
-
-~~~java
-/**
- * 게시물 필터 (Tag Name)
- */
-@Override
-public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
-
-    QueryResults<Post> results = queryFactory
-            .selectFrom(post)
-            .innerJoin(postTag)
-                .on(post.idx.eq(postTag.post.idx))
-            .innerJoin(tag)
-                .on(tag.idx.eq(postTag.tag.idx))
-            .where(tag.name.eq(tagName))
-            .orderBy(post.idx.desc())
-                .limit(pageable.getPageSize())
-                .offset(pageable.getOffset())
-            .fetchResults();
-
-    return new PageImpl<>(results.getResults(), pageable, results.getTotal());
-}
-~~~
-
-</div>
-</details>
-
-</br>
 
 ## 6. 그 외 트러블 슈팅
