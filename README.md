@@ -142,9 +142,8 @@
 
 ### 4.3. 이상행동 탐지 알고리즘
 
-
 - **침입 탐지 알고리즘**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175884409-02451716-e95d-4758-b2a4-2e681777a986.JPG)
   - 침입은 사용자 설정 구역에 객체의 몸 전체가 들어가야 한다는 기준을 가지고 탐지함.
   - 객체를 탐지할 때 생기는 Bbox의 꼭지점을 포인트로 지칭하고 사용자 설정구역을 다각형으로 지칭할 때, 다각형 내부에 포인트가 있는지 판별하는 것이 기능 구현의 핵심임.
   - 포인트에서 오른쪽으로 직선을 그었을 때 직선의 접점 개수가 홀수면 다각형의 내부, 짝수면 외부로 판별함.
@@ -152,14 +151,14 @@
 
      
 - **배회 탐지 알고리즘**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175884410-cc921e26-662f-46f5-a693-7c1d7eba7fa0.JPG)
   - 배회는 객체의 몸 전체가 사용자 설정구역에서 10초 이상 머무는 것을 기준으로 탐지함.
   - 침입 탐지 알고리즘을 기본 조건으로 하여 작동함.
   - 위 사진과 같이 객체별로 등장한 프레임 수를 세어서 시간 개념으로 변환함.
   - 30fps의 영상에서 특정 객체가 등장한 프레임 수가 300이면 10초의 시간으로 인식되어 배회를 탐지함.
  
 - **쓰러짐 탐지 알고리즘**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175884404-b55919e4-7b5f-471a-bc13-4353b81a7822.JPG)
   - 쓰러짐은 사람이 주저앉거나 실신한 상태를 기준을 탐지함.
   - 객체가 쓰러졌을 때 Bbox의 가로와 세로 비율이 반전됨.
   - Bbox 대각선 위치의 꼭짓점을 서로 연결했을 때 교차점의 각도를 연산하여 기능을 구현함.
@@ -167,7 +166,7 @@
   - 객체가 화면 가장자리에서 등장할 때 몸의 일부만 탐지되면 Bbox의 비율이 반전되기 때문에 Bbox의 y값과 화면의 가장자리가 겹치는 경우를 배제함.
      
 - **화재 탐지 모델**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175884412-f231bad0-f74d-494f-a7f2-6dda22f46b03.jpg)
   - 화재 탐지 모델은 이상행동 탐지 모델과는 별개로 YOLOv5 가중치 값에 전이 학습을 하여 구축함.
   - 화재 이미지 데이터 약 400장을 labeling하고 훈련데이터와 검증데이터를 8:2로 학습을 진행함.
   - 0.5 이상의 예측 정확도를 가진 Bbox가 화면에 출력됨.
@@ -188,7 +187,7 @@
 
 ### 4.4. Django 이용 웹 배포
 - **Django 템플릿** 
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
+![](https://drive.google.com/file/d/1BLu7KkrbiIg4_qPWKrz7apVQBAylC0Do/view?usp=sharing)
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
      
