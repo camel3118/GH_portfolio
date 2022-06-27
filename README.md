@@ -40,10 +40,28 @@
 
 </br>
 
-## 1. 제작 기간 & 참여 인원
+## 1. 제작 기간 & 참여 인원 및 역할
 - 2022년 4월 4일 ~ 6월 15일
 - 한양대학교 산학협력단(K-digital training)
 - 총 인원 6인
+- 역할: 팀 리더
+- 활동 내역:
+     ㅇ System Architecture 구상/제작
+     ㅇ Product Backlog/Splint Plan 계획/작성
+     ㅇ Prototype 가정/기능 수준 설정
+     ㅇ 스크럼 미팅 진행
+     ㅇ 멘토 미팅 진행
+     ㅇ Linux PC1(Ubuntu local PC) 시스템 구축/제공/관리
+     ㅇ Linux PC2(Ubuntu local PC) 제공/관리
+     ㅇ CUDA/cuDNN 환경 구축
+     ㅇ Azure VM 관리
+     ㅇ YOLOv5/Deepsort 사전학습 모델적용 코드 작성
+     ㅇ YOLOv5 사전학습 모델 전이 학습
+     ㅇ ‘쓰러짐’ 이상행동 탐지 기초기능 구현
+     ㅇ ‘배회’ 이상행동 탐지 기능 구현
+     ㅇ spark(분산 처리) / Kafka(분산 저장) 시스템 구축
+     ㅇ M-JPEG 영상 재생 기능 구현
+     ㅇ Linux 장비 원격 접속 기능 구축
 
 </br>
 
@@ -160,31 +178,13 @@ MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 �
   - 모델 성능개선 후 2차 성능테스트 결과 종합 평균 93.8점 획득함.
 
 
-### 4.4. 문제점 및 해결방안
 
-
-- **Http 프로토콜 추가 및 trim()** :pushpin: [코드 확인]()
-  - 사용자가 URL 입력 시 Http 프로토콜을 생략하거나 공백을 넣은 경우,  
-  올바른 URL이 될 수 있도록 Http 프로토콜을 추가해주고, 공백을 제거해줍니다.
-
-- **URL 접속 확인** :pushpin: [코드 확인]()
-  - 화면단에서 모양새만 확인한 URL이 실제 리소스로 연결되는지 HttpUrlConnection으로 테스트합니다.
-  - 이 때, 빠른 응답을 위해 Request Method를 GET이 아닌 HEAD를 사용했습니다.
-  - (HEAD 메소드는 GET 메소드의 응답 결과의 Body는 가져오지 않고, Header만 확인하기 때문에 GET 메소드에 비해 응답속도가 빠릅니다.)
-
-  ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_service2.png)
-
-- **Jsoup 이미지, 제목 파싱** :pushpin: [코드 확인]()
-  - URL 접속 확인결과 유효하면 Jsoup을 사용해서 입력된 URL의 이미지와 제목을 파싱합니다.
-  - 이미지는 Open Graphic Tag를 우선적으로 파싱하고, 없을 경우 첫 번째 이미지와 제목을 파싱합니다.
-  - 컨텐츠에 이미지가 없을 경우, 미리 설정해둔 기본 이미지를 사용하고, 제목이 없을 경우 생략합니다.
-
-
-### 4.5. Repository
-
+### 4.4. Django 이용 웹 배포
+- **Django 템플릿** 
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
-
-- **컨텐츠 저장** :pushpin: [코드 확인]()
+![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
+![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_repo.png)
+     
   - URL 유효성 체크와 이미지, 제목 파싱이 끝난 컨텐츠는 DB에 저장합니다.
   - 저장된 컨텐츠는 다시 Repository - Service - Controller를 거쳐 화면단에 송출됩니다.
 
@@ -216,14 +216,34 @@ MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 �
   - User story 선정 및 업무 분배 등 개발과 관련된 사안은 모두 조원 각자가 스크럼 회의를 통하여 자율적으로 결정하여 진행함.
   - 최종 개발 방향 및 중요 사안의 경우 팀원들과 스크럼 회의를 통해 팀장이 결정함.
 
-- **팀원 간 의사소통**
-  - 개발 초기 생소한 기술의 이해 부족 및 의사소통의 부재 때문에 원활한 개발 진행이 어려웠음.
-  - 원활한 업무 진행을 위하여 매일 오전 스크럼 회의 진행을 통해 시스템/모델 팀 간의 의사를 교환하고 관련 지식 전파를 추진함.
-  - 개발 속도를 높이기 위하여 팀원들의 스스로 결정할 수 있는 자율성을 강조함.
-  - User story 선정 및 업무 분배 등 개발과 관련된 사안은 모두 조원 각자가 스크럼 회의를 통하여 자율적으로 결정하여 진행함.
-  - 최종 개발 방향 및 중요 사안의 경우 팀원들과 스크럼 회의를 통해 팀장이 결정함.  
 
 
+### 5.2. 프로토타입 개발 측면
+- **Cluster 구축**
+  - 분산 처리/저장을 위하여 Spark와 Kafka를 Cluster로 구축함.
+  - Cluster 구축 시에 각 장비는 IP 주소와 Port 번호로 통신함.
+  - on-premise Server는 공인 IP 하나만 존재하지만, Azure의 경우 외부, 내부 IP가 각각 존재함.
+  - Azure 외부 IP로만 설정하여 Azure VM간의 연결이 안 되어 지속적 오류가 발생하였음.
+  - 이에 설정값에 Azure 외부, 내부 IP를 병기 하여 두 IP 주소 모두 통신할 수 있게끔 설정하여 오류를 해결하였음.
+
+- **이상행동 알람 기능 구현**
+  - 이상행동 발생 여부를 알리는 알람을 이메일로 제공하고자 하였음.
+  - 이메일의 경우 관리자가 제대로 확인하지 않을 수 있다는 점이 스크럼 회의에서 피드백으로 제안됨.
+  - 이메일을 대체할 다른 알람 방법으로 소리, 앱 알람 등이 제안되었으나 개발 기간을 고려하면 현실성이 떨어진다는 피드백이 나옴.
+  - 이에 카카오톡 API를 이용한 카카오톡 알람 기능이 제안되어 무료 버전을 기반으로 이상행동 알람 기능을 구현함.
+
+- **이상행동 중 배회의 시간 개념 설정**
+  - 배회의 경우 지정구역 안에서 객체가 10초 이상 탐지될 때 발생함.
+  - 10초라는 시간의 개념이 현실과 영상 안에서 다를 수 있기 때문에 이를 모두 포함할 수 있는 개념이 필요하였음.
+  - 이에 영상의 프레임 단위를 이용하여 역산하여 시간으로 환산하는 공식을 알고리즘에 포함했음.
+  - 예를 들어 초당 30프레임인 영상의 경우 300프레임이 영상에서의 10초이므로 300프레임 이상 배회 행위가 탐지될 때 경고가 발생함.
+
+- **다중객체 탐지(MOT) 기반의 이상행동 탐지 기능 구현**
+  - 기존의 YOLOv5 기반 알고리즘은 다중객체가 탐지될 때 인원이 특정되지 않아서 지속해서 오류가 발생하였음.
+  - 다중으로 객체가 탐지될 때 이를 특정하는 값이 필요하였음.
+  - 객체를 특정하는 ID 값을 부여하기 위하여 DeepSORT와 YOLOv5를 통합하였음.
+  - DeepSORT는 다중객체 탐지(MOT) 알고리즘의 일종으로 정확성은 조금 떨어져도 처리 속도가 빨라 실시간성을 확보하기 쉬웠음.
+  - DeepSORT를 통해 산출되는 ID 값을 이용하여 객체를 특정하는 것으로 알고리즘을 수정하였고 이를 통해 많은 객체를 동시에 탐지하는 기능과 객체 탐지 수에 따라 발생하던 오류를 해결할 수 있었음.
 </div>
 </details>
 
@@ -264,182 +284,3 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 </br>
 
 ## 6. 그 외 트러블 슈팅
-<details>
-<summary>npm run dev 실행 오류</summary>
-<div markdown="1">
-
-- Webpack-dev-server 버전을 3.0.0으로 다운그레이드로 해결
-- `$ npm install —save-dev webpack-dev-server@3.0.0`
-
-</div>
-</details>
-
-<details>
-<summary>vue-devtools 크롬익스텐션 인식 오류 문제</summary>
-<div markdown="1">
-  
-  - main.js 파일에 `Vue.config.devtools = true` 추가로 해결
-  - [https://github.com/vuejs/vue-devtools/issues/190](https://github.com/vuejs/vue-devtools/issues/190)
-  
-</div>
-</details>
-
-<details>
-<summary>ElementUI input 박스에서 `v-on:keyup.enter="메소드명"`이 정상 작동 안하는 문제</summary>
-<div markdown="1">
-  
-  - `v-on:keyup.enter.native=""` 와 같이 .native 추가로 해결
-  
-</div>
-</details>
-
-<details>
-<summary> Post 목록 출력시에 Member 객체 출력 에러 </summary>
-<div markdown="1">
-  
-  - 에러 메세지(500에러)
-    - No serializer found for class org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationConfig.SerializationFeature.FAIL_ON_EMPTY_BEANS)
-  - 해결
-    - Post 엔티티에 @ManyToOne 연관관계 매핑을 LAZY 옵션에서 기본(EAGER)옵션으로 수정
-  
-</div>
-</details>
-    
-<details>
-<summary> 프로젝트를 git init으로 생성 후 발생하는 npm run dev/build 오류 문제 </summary>
-<div markdown="1">
-  
-  ```jsx
-    $ npm run dev
-    npm ERR! path C:\Users\integer\IdeaProjects\pilot\package.json
-    npm ERR! code ENOENT
-    npm ERR! errno -4058
-    npm ERR! syscall open
-    npm ERR! enoent ENOENT: no such file or directory, open 'C:\Users\integer\IdeaProjects\pilot\package.json'
-    npm ERR! enoent This is related to npm not being able to find a file.
-    npm ERR! enoent
-
-    npm ERR! A complete log of this run can be found in:
-    npm ERR!     C:\Users\integer\AppData\Roaming\npm-cache\_logs\2019-02-25T01_23_19_131Z-debug.log
-  ```
-  
-  - 단순히 npm run dev/build 명령을 입력한 경로가 문제였다.
-   
-</div>
-</details>    
-
-<details>
-<summary> 태그 선택후 등록하기 누를 때 `object references an unsaved transient instance - save the transient instance before flushing` 오류</summary>
-<div markdown="1">
-  
-  - Post 엔티티의 @ManyToMany에 영속성 전이(cascade=CascadeType.ALL) 추가
-    - JPA에서 Entity를 저장할 때 연관된 모든 Entity는 영속상태여야 한다.
-    - CascadeType.PERSIST 옵션으로 부모와 자식 Enitity를 한 번에 영속화할 수 있다.
-    - 참고
-        - [https://stackoverflow.com/questions/2302802/object-references-an-unsaved-transient-instance-save-the-transient-instance-be/10680218](https://stackoverflow.com/questions/2302802/object-references-an-unsaved-transient-instance-save-the-transient-instance-be/10680218)
-   
-</div>
-</details>    
-
-<details>
-<summary> JSON: Infinite recursion (StackOverflowError)</summary>
-<div markdown="1">
-  
-  - @JsonIgnoreProperties 사용으로 해결
-    - 참고
-        - [http://springquay.blogspot.com/2016/01/new-approach-to-solve-json-recursive.html](http://springquay.blogspot.com/2016/01/new-approach-to-solve-json-recursive.html)
-        - [https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue](https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue)
-        
-</div>
-</details>  
-    
-<details>
-<summary> H2 접속문제</summary>
-<div markdown="1">
-  
-  - H2의 JDBC URL이 jdbc:h2:~/test 으로 되어있으면 jdbc:h2:mem:testdb 으로 변경해서 접속해야 한다.
-        
-</div>
-</details> 
-    
-<details>
-<summary> 컨텐츠수정 모달창에서 태그 셀렉트박스 드랍다운이 뒤쪽에 보이는 문제</summary>
-<div markdown="1">
-  
-   - ElementUI의 Global Config에 옵션 추가하면 해결
-     - main.js 파일에 `Vue.us(ElementUI, { zIndex: 9999 });` 옵션 추가(9999 이하면 안됌)
-   - 참고
-     - [https://element.eleme.io/#/en-US/component/quickstart#global-config](https://element.eleme.io/#/en-US/component/quickstart#global-config)
-        
-</div>
-</details> 
-
-<details>
-<summary> HTTP delete Request시 개발자도구의 XHR(XMLHttpRequest )에서 delete요청이 2번씩 찍히는 이유</summary>
-<div markdown="1">
-  
-  - When you try to send a XMLHttpRequest to a different domain than the page is hosted, you are violating the same-origin policy. However, this situation became somewhat common, many technics are introduced. CORS is one of them.
-
-        In short, server that you are sending the DELETE request allows cross domain requests. In the process, there should be a **preflight** call and that is the **HTTP OPTION** call.
-
-        So, you are having two responses for the **OPTION** and **DELETE** call.
-
-        see [MDN page for CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
-
-    - 출처 : [https://stackoverflow.com/questions/35808655/why-do-i-get-back-2-responses-of-200-and-204-when-using-an-ajax-call-to-delete-o](https://stackoverflow.com/questions/35808655/why-do-i-get-back-2-responses-of-200-and-204-when-using-an-ajax-call-to-delete-o)
-        
-</div>
-</details> 
-
-<details>
-<summary> 이미지 파싱 시 og:image 경로가 달라서 제대로 파싱이 안되는 경우</summary>
-<div markdown="1">
-  
-  - UserAgent 설정으로 해결
-        - [https://www.javacodeexamples.com/jsoup-set-user-agent-example/760](https://www.javacodeexamples.com/jsoup-set-user-agent-example/760)
-        - [http://www.useragentstring.com/](http://www.useragentstring.com/)
-        
-</div>
-</details> 
-    
-<details>
-<summary> 구글 로그인으로 로그인한 사용자의 정보를 가져오는 방법이 스프링 2.0대 버전에서 달라진 것</summary>
-<div markdown="1">
-  
-  - 1.5대 버전에서는 Controller의 인자로 Principal을 넘기면 principal.getName(0에서 바로 꺼내서 쓸 수 있었는데, 2.0대 버전에서는 principal.getName()의 경우 principal 객체.toString()을 반환한다.
-    - 1.5대 버전에서 principal을 사용하는 경우
-    - 아래와 같이 사용했다면,
-
-    ```jsx
-    @RequestMapping("/sso/user")
-    @SuppressWarnings("unchecked")
-    public Map<String, String> user(Principal principal) {
-        if (principal != null) {
-            OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) principal;
-            Authentication authentication = oAuth2Authentication.getUserAuthentication();
-            Map<String, String> details = new LinkedHashMap<>();
-            details = (Map<String, String>) authentication.getDetails();
-            logger.info("details = " + details);  // id, email, name, link etc.
-            Map<String, String> map = new LinkedHashMap<>();
-            map.put("email", details.get("email"));
-            return map;
-        }
-        return null;
-    }
-    ```
-
-    - 2.0대 버전에서는
-    - 아래와 같이 principal 객체의 내용을 꺼내 쓸 수 있다.
-
-    ```jsx
-    UsernamePasswordAuthenticationToken token =
-                    (UsernamePasswordAuthenticationToken) SecurityContextHolder
-                            .getContext().getAuthentication();
-            Map<String, Object> map = (Map<String, Object>) token.getPrincipal();
-
-            String email = String.valueOf(map.get("email"));
-            post.setMember(memberRepository.findByEmail(email));
-    ```
-        
-</div>
-</details> 
