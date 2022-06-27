@@ -88,9 +88,14 @@
   - Django 4.0.5
 
 </br>
+![슬라이드1]()
+![슬라이드2]()
+![슬라이드4]()
+![슬라이드5]()
+![슬라이드6]()
 
 ## 3. 논리적 시스템 구성도
-![](https://user-images.githubusercontent.com/81274469/175882155-a6ceff9e-ba79-49b3-bf96-76897bc6c147.png)
+![](https://user-images.githubusercontent.com/81274469/175882612-86992d04-8d5e-43c7-8207-8230c6210bcc.JPG)
 
 
 ## 4. 핵심 기능
@@ -106,7 +111,7 @@
 <div markdown="1">
 
 ### 4.1. 물리적 시스템 구성도
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow1.png)
+![](https://user-images.githubusercontent.com/81274469/175882621-a02b7389-6570-4580-a45e-21749adbdac6.JPG)
 - **시스템 동작 흐름**
      1. CCTV 영상이 Spark 안에서 Python을 기반으로 OpenCV를 통해 Frame단위로 쪼개어짐.
      2. OpenCV를 이용하여 MariaDB에 카메라 ID, 탐지된 이상행동의 종류, 금지구역 좌푯값을 저장.
@@ -122,7 +127,7 @@
 
 
 - **Software 배치도**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175882625-8a981d8b-859e-496d-9450-3c964aa62e7e.JPG)
   - 각 Server는 Linux 기반의 Ubuntu 18.04 버전 OS를 바탕으로 구성됨.
   - CUDA / cuDNN은 머신러닝 구동 시 GPU를 사용하여 처리 속도를 올리기 위한 라이브러리 임.
   - RDBMS로 MariaDB를 채택하여 구축하였고, Nosql로 MongoDB를 구축하였음.
@@ -131,7 +136,7 @@
   - 각 Spark node 안에는 모델 구동에 필요한 Pytorch, OpenCV, YOLOv5, DeepSORT 등이 구축됨.
      
  - **Hardware 배치도**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175882631-79776d94-5d12-42a1-9405-c5d2260b6416.JPG)
   - 각 Server는 IP 주소로 통신하며 여기에 기반하는 Port 주소를 각 Cluster 마다 할당함.
   - 개인 PC를 기반으로 하는 On-premise Server 1개와 Azure Cloud를 기반으로 하는 VM Server 2개가 엮여 총 3개를 Cluster로 구성함.
 
@@ -171,7 +176,8 @@
 
 ### 4.3. 모델 성능 평가
 - **모델 성능 평가**
-     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
+     ![](https://user-images.githubusercontent.com/81274469/175882635-da1c8a86-ffcc-4cfb-ab54-897dfe2bd636.JPG)
+     ![](https://user-images.githubusercontent.com/81274469/175882635-da1c8a86-ffcc-4cfb-ab54-897dfe2bd636.JPG)
   - KISA 지능형 CCTV 인증기준 기반 모델 성능 테스트를 진행함.
   - KISA에서 제공하는 테스트 프로그램 사용하여 결과값 측정함.
   - 침입/쓰러짐/배회/화재탐지 등 4가지 이상행동에 대해 실시함. 
