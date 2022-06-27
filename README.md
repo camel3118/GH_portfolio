@@ -90,7 +90,7 @@
 </br>
 
 ## 3. 논리적 시스템 구성도
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/final_erd.png)
+![](1. 지능형 CCTV/images/논리적 시스템.png)
 
 
 ## 4. 핵심 기능
