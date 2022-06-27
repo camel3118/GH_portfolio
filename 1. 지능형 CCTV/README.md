@@ -67,7 +67,7 @@
 
 <details>
 <summary><b>핵심 기능 설명 펼치기</b></summary>
-<div markdown="1">
+<div markdown="2">
 
 ### 4.1. 물리적 시스템 구성도
 ![](https://user-images.githubusercontent.com/81274469/175882621-a02b7389-6570-4580-a45e-21749adbdac6.JPG)
