@@ -48,9 +48,13 @@ CNN 1차원 레이어를 통해 분석 데이터를 3차원화 한 후 양방향
 - Yahoo finance api를 이용하여 주가지수/원자재/국채 금리/경쟁사 주가 등의 데이터를 수집함.
 - 2017년 1월 1일 부터 2020년 12월 31일 까지를 Train Set으로, 2021년 1월 1일부터 2021년 12월 31일 까지를 Test Set으로 설정하였음.
 
+![최종 선정 결과](https://user-images.githubusercontent.com/81274469/175943141-ad591fa3-127a-4c98-adfa-57e6d28c8dbc.png)
+![5조 미니프로젝트-주가예측 발표자료](https://user-images.githubusercontent.com/81274469/175943147-93f8a96a-8c47-49dd-b2f5-5b86a54710c8.png)
+![BILSTM](https://user-images.githubusercontent.com/81274469/175943150-121a64cf-ea78-4a29-9b59-b80d5e3819c3.png)
+https://user-images.githubusercontent.com/81274469/175884412-f231bad0-f74d-494f-a7f2-6dda22f46b03.jpg)
 
 ### 4.1. 양방향 LSTM 선정 배경
-![](https://user-images.githubusercontent.com/81274469/175882621-a02b7389-6570-4580-a45e-21749adbdac6.JPG)
+![](https://user-images.githubusercontent.com/81274469/175943150-121a64cf-ea78-4a29-9b59-b80d5e3819c3.png)
 - **시스템 동작 흐름**
      1. CCTV 영상이 Spark 안에서 Python을 기반으로 OpenCV를 통해 Frame단위로 쪼개어짐.
      2. OpenCV를 이용하여 MariaDB에 카메라 ID, 탐지된 이상행동의 종류, 금지구역 좌푯값을 저장.
