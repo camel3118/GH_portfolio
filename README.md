@@ -90,7 +90,7 @@
 </br>
 
 ## 3. 논리적 시스템 구성도
-![](1. 지능형 CCTV/images/논리적 시스템.png)
+![](https://user-images.githubusercontent.com/81274469/175882155-a6ceff9e-ba79-49b3-bf96-76897bc6c147.png)
 
 
 ## 4. 핵심 기능
