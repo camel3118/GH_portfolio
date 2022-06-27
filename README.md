@@ -45,7 +45,8 @@
 - 한양대학교 산학협력단(K-digital training)
 - 총 인원 6인
 - 역할: 팀 리더
-#### '활동 내역'
+
+#### `활동내역`
 - System Architecture 구상/제작
 - Product Backlog/Splint Plan 계획/작성
 - Prototype 가정/기능 수준 설정
