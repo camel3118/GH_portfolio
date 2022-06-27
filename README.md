@@ -100,9 +100,10 @@ MVP(최소기능제품) 제작을 위해 애자일 방법에 따라 개발을 �
 
 
 ### 4.2. 알고리즘
-![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
 
-- **URL 정규식 체크** :pushpin: [코드 확인](https://github.com/Integerous/goQuality/blob/b587bbff4dce02e3bec4f4787151a9b6fa326319/frontend/src/components/PostInput.vue#L67)
+
+- **URL 정규식 체크** :pushpin: [코드 확인]
+     ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
   - Vue.js로 렌더링된 화면단에서, 사용자가 등록을 시도한 URL의 모양새를 정규식으로 확인합니다.
   - URL의 모양새가 아닌 경우, 에러 메세지를 띄웁니다.
 
