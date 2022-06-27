@@ -177,7 +177,7 @@
 ### 4.3. 모델 성능 평가
 - **모델 성능 평가**
      ![](https://user-images.githubusercontent.com/81274469/175882635-da1c8a86-ffcc-4cfb-ab54-897dfe2bd636.JPG)
-     ![](https://user-images.githubusercontent.com/81274469/175882635-da1c8a86-ffcc-4cfb-ab54-897dfe2bd636.JPG)
+     ![](https://user-images.githubusercontent.com/81274469/175883441-78809e69-9991-41dc-bacb-3f86723f6b88.jpg)
   - KISA 지능형 CCTV 인증기준 기반 모델 성능 테스트를 진행함.
   - KISA에서 제공하는 테스트 프로그램 사용하여 결과값 측정함.
   - 침입/쓰러짐/배회/화재탐지 등 4가지 이상행동에 대해 실시함. 
