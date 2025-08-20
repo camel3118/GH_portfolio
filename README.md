@@ -52,7 +52,7 @@
    * 사용 기술 스택: Linux(Rocky Linux), MariaDB, M/L, python, Logpresso(araqne), API
  - 주요 성과
    * 기관 내 현황 분석 후 노후화 장비 로그관제 체계 구축 가이드
-   * 보안감사 대비 로그관제 체계 강화 가이드드
+   * 보안감사 대비 로그관제 체계 강화 가이드
 
 * * *
 
